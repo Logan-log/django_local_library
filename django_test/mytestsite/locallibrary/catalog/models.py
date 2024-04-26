@@ -1,5 +1,6 @@
 from django.db import models
 
+# Create your models here.
 from django.urls import reverse # Used in get_absolute_url() to get URL for specified ID
 
 from django.db.models import UniqueConstraint # Constrains fields to unique values
@@ -29,7 +30,7 @@ class Genre(models.Model):
                 violation_error_message = "Genre already exists (case insensitive match)"
             ),
         ]
-        
+
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     title = models.CharField(max_length=200)
@@ -56,6 +57,7 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Returns the URL to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
+
 
 import uuid # Required for unique book instances
 
@@ -90,6 +92,7 @@ class BookInstance(models.Model):
         """String for representing the Model object."""
         return f'{self.id} ({self.book.title})'
 
+
 class Author(models.Model):
     """Model representing an author."""
     first_name = models.CharField(max_length=100)
@@ -107,3 +110,4 @@ class Author(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
+
